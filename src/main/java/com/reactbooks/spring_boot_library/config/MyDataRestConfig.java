@@ -1,6 +1,7 @@
 package com.reactbooks.spring_boot_library.config;
 
 import com.reactbooks.spring_boot_library.model.Book;
+import com.reactbooks.spring_boot_library.model.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -22,8 +23,10 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         };
 
         config.exposeIdsFor(Book.class);
+        config.exposeIdsFor(Review.class);
 
         disableHttpMethods(Book.class, config, unsupportedActions);
+        disableHttpMethods(Review.class, config, unsupportedActions);
 
         cors.addMapping(config.getBasePath() + "/**")
                 .allowedOrigins(allowedOrigins);
