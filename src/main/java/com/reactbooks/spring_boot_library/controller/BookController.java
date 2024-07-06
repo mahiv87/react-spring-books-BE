@@ -2,6 +2,7 @@ package com.reactbooks.spring_boot_library.controller;
 
 import com.reactbooks.spring_boot_library.model.Book;
 import com.reactbooks.spring_boot_library.service.BookService;
+import com.reactbooks.spring_boot_library.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,19 +18,19 @@ public class BookController {
     }
 
     @GetMapping("/secure/currentloans/count")
-    public int currentLoansCount() {
+    public int currentLoansCount(@RequestHeader(value = "Authorization") String token) {
         String userEmail = "testuser@email.com";
         return bookService.currentLoansCount(userEmail);
     }
 
     @GetMapping("/secure/ischeckedout/byuser")
-    public Boolean isBookCheckedOutByUser(@RequestParam Long bookId) {
-        String userEmail = "testuser@email.com";
+    public Boolean isBookCheckedOutByUser(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token);
         return bookService.isBookCheckedOutByUser(userEmail, bookId);
     }
 
     @PutMapping("/secure/checkout")
-    public Book checkoutBook (@RequestParam Long bookId) throws Exception {
+    public Book checkoutBook (@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) throws Exception {
         String userEmail = "testuser@email.com";
         return bookService.checkoutBook(userEmail, bookId);
     }
