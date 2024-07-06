@@ -25,7 +25,7 @@ public class BookController {
 
     @GetMapping("/secure/ischeckedout/byuser")
     public Boolean isBookCheckedOutByUser(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) {
-        String userEmail = ExtractJWT.payloadJWTExtraction(token);
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
         return bookService.isBookCheckedOutByUser(userEmail, bookId);
     }
 
