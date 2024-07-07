@@ -1,7 +1,6 @@
 package com.reactbooks.spring_boot_library.service;
 
 import com.reactbooks.spring_boot_library.model.Review;
-import com.reactbooks.spring_boot_library.repository.BookRepository;
 import com.reactbooks.spring_boot_library.repository.ReviewRepository;
 import com.reactbooks.spring_boot_library.requestmodels.ReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,10 @@ import java.util.Objects;
 @Transactional
 public class ReviewService {
 
-    private BookRepository bookRepository;
     private ReviewRepository reviewRepository;
 
     @Autowired
-    public ReviewService(BookRepository bookRepository, ReviewRepository reviewRepository) {
-        this.bookRepository = bookRepository;
+    public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 
@@ -45,4 +42,11 @@ public class ReviewService {
         review.setDate(Date.valueOf(LocalDate.now()));
         reviewRepository.save(review);
     }
+
+    public Boolean userReviewListed (String userEmail, Long bookId) {
+        Review validateReview = reviewRepository.findByUserEmailAndBookId(userEmail, bookId);
+
+        return validateReview != null;
+    }
+
 }
