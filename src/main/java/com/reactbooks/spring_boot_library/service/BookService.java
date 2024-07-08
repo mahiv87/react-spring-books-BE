@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -90,7 +91,7 @@ public class BookService {
 
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
-        if (!book.isPresent() || validateCheckout == null) {
+        if (book.isEmpty() || validateCheckout == null) {
             throw new Exception("Book doesnt exist or not checked out by user");
         }
 
@@ -98,6 +99,24 @@ public class BookService {
 
         bookRepository.save(book.get());
         checkoutRepository.deleteById(validateCheckout.getId());
+    }
+
+    public void renewLoan (String userEmail, Long bookId) throws Exception {
+        Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
+
+        if (validateCheckout == null) {
+            throw new Exception("Book does not exist or is not checked out by user");
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate returnDate = LocalDate.parse(validateCheckout.getReturnDate(), formatter);
+        LocalDate now = LocalDate.now();
+
+        if (!returnDate.isBefore(now)) {
+            validateCheckout.setReturnDate(now.plusDays(7).format(formatter));
+            checkoutRepository.save(validateCheckout);
+        }
     }
 
 
