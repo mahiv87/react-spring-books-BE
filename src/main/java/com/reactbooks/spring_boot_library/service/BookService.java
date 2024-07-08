@@ -4,11 +4,17 @@ import com.reactbooks.spring_boot_library.model.Book;
 import com.reactbooks.spring_boot_library.model.Checkout;
 import com.reactbooks.spring_boot_library.repository.BookRepository;
 import com.reactbooks.spring_boot_library.repository.CheckoutRepository;
+import com.reactbooks.spring_boot_library.responsemodels.ShelfCurrentLoansResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.time.Duration;
 
 @Service
 @Transactional
@@ -51,6 +57,38 @@ public class BookService {
 
     public int currentLoansCount (String userEmail) {
         return checkoutRepository.findBooksByUserEmail(userEmail).size();
+    }
+
+    public List<ShelfCurrentLoansResponse> currentLoans (String userEmail) throws Exception {
+        List<ShelfCurrentLoansResponse> shelfCurrentLoansResponses = new ArrayList<>();
+
+        List<Checkout> checkoutList = checkoutRepository.findBooksByUserEmail(userEmail);
+        List<Long> bookIdList = new ArrayList<>();
+
+        for (Checkout i : checkoutList) {
+            bookIdList.add(i.getBookId());
+        }
+
+        List<Book> books = bookRepository.findBookById(bookIdList);
+
+        for (Book book : books) {
+            Optional<Checkout> checkout = checkoutList.stream().filter(x -> x.getBookId() == book.getId()).findFirst();
+
+            if (checkout.isPresent()) {
+                LocalDate returnDate = LocalDate.parse(checkout.get().getReturnDate());
+                LocalDate now = LocalDate.now();
+
+                Duration duration = Duration.between(now.atStartOfDay(), returnDate.atStartOfDay());
+                long daysLeft = duration.toDays();
+
+                shelfCurrentLoansResponses.add(new ShelfCurrentLoansResponse(book,(int) daysLeft));
+
+            }
+
+        }
+
+        return shelfCurrentLoansResponses;
+
     }
 
 
