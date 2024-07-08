@@ -8,10 +8,8 @@ import com.reactbooks.spring_boot_library.responsemodels.ShelfCurrentLoansRespon
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.time.Duration;
@@ -82,13 +80,9 @@ public class BookService {
                 long daysLeft = duration.toDays();
 
                 shelfCurrentLoansResponses.add(new ShelfCurrentLoansResponse(book,(int) daysLeft));
-
             }
-
         }
-
         return shelfCurrentLoansResponses;
-
     }
 
 
