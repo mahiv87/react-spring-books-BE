@@ -1,20 +1,16 @@
 package com.reactbooks.spring_boot_library.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "checkout")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Checkout {
-    public Checkout() {}
-
-    public Checkout(String userEmail, String checkoutDate, String returnDate, Long bookId) {
-        this.userEmail = userEmail;
-        this.checkoutDate = checkoutDate;
-        this.returnDate = returnDate;
-        this.bookId = bookId;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +28,13 @@ public class Checkout {
 
     @Column(name = "book_id")
     private Long bookId;
+
+    // Additional constructor to match the required arguments
+    public Checkout(String userEmail, String checkoutDate, String returnDate, Long bookId) {
+        this.userEmail = userEmail;
+        this.checkoutDate = checkoutDate;
+        this.returnDate = returnDate;
+        this.bookId = bookId;
+    }
 
 }
