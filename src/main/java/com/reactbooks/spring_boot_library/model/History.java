@@ -23,8 +23,8 @@ public class History {
     @Column(name = "checkout_date")
     private String checkoutDate;
 
-    @Column(name = "return_date")
-    private String returnDate;
+    @Column(name = "returned_date")
+    private String returnedDate;
 
     @Column(name = "title")
     private String title;
@@ -49,7 +49,7 @@ public class History {
             String img) {
         this.userEmail = userEmail;
         this.checkoutDate = checkoutDate;
-        this.returnDate = returnDate;
+        this.returnedDate = returnDate;
         this.title = title;
         this.author = author;
         this.description = description;
