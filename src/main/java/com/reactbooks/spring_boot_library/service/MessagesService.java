@@ -13,11 +13,11 @@ public class MessagesService {
     private MessageRepository messageRepository;
 
     @Autowired
-    public MessagesService (MessageRepository messageRepository) {
+    public MessagesService(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
     }
 
-    public void postMessage (Message messageRequest, String userEmail) {
+    public void postMessage(Message messageRequest, String userEmail) {
         Message message = new Message(messageRequest.getTitle(), messageRequest.getQuestion());
 
         message.setUserEmail(userEmail);

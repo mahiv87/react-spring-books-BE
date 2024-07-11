@@ -56,7 +56,7 @@ public class BookController {
         bookService.renewLoan(userEmail, bookId);
     }
 
-    private String extractUserEmail (String token) {
+    private String extractUserEmail(String token) {
         return ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
     }
 
