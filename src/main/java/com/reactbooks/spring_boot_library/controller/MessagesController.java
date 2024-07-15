@@ -18,7 +18,8 @@ public class MessagesController {
     }
 
     @PostMapping("/secure/add/message")
-    public void postMessage(@RequestHeader(value = "Authorization") String token, @RequestBody Message messageRequest) {
+    public void postMessage(@RequestHeader(value = "Authorization") String token,
+                            @RequestBody Message messageRequest) {
         String userEmail = extractUserEmail(token);
 
         messagesService.postMessage(messageRequest, userEmail);
@@ -26,7 +27,8 @@ public class MessagesController {
     }
 
     @PutMapping("/secure/admin/message")
-    public void putMessage(@RequestHeader(value = "Authoriztion") String token, @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
+    public void putMessage(@RequestHeader(value = "Authorization") String token,
+                           @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
         String userEmail = extractUserEmail(token);
 
         String admin = ExtractJWT.payloadJWTExtraction(token, "\"userType\"");
