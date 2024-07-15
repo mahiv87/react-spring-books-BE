@@ -1,6 +1,7 @@
 package com.reactbooks.spring_boot_library.controller;
 
 import com.reactbooks.spring_boot_library.model.Message;
+import com.reactbooks.spring_boot_library.requestmodels.AdminQuestionRequest;
 import com.reactbooks.spring_boot_library.service.MessagesService;
 import com.reactbooks.spring_boot_library.utils.ExtractJWT;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,19 @@ public class MessagesController {
 
         messagesService.postMessage(messageRequest, userEmail);
 
+    }
+
+    @PutMapping("/secure/admin/message")
+    public void putMessage(@RequestHeader(value = "Authoriztion") String token, @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
+        String userEmail = extractUserEmail(token);
+
+        String admin = ExtractJWT.payloadJWTExtraction(token, "\"userType\"");
+
+        if (admin == null || !admin.equals("admin")) {
+            throw new Exception("Administration access only");
+        }
+
+        messagesService.putMessage(adminQuestionRequest, userEmail);
     }
 
 
