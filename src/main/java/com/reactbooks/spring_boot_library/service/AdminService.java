@@ -36,7 +36,7 @@ public class AdminService {
     public void decreaseBookQty(Long bookId) throws Exception {
         Optional<Book> book = bookRepository.findById(bookId);
 
-        if (book.isEmpty()) {
+        if (book.isEmpty() || book.get().getCopiesAvailable() <= 0 || book.get().getCopies() <= 0) {
             throw new Exception("Book not found");
         }
 
