@@ -2,6 +2,8 @@ package com.reactbooks.spring_boot_library.service;
 
 import com.reactbooks.spring_boot_library.model.Book;
 import com.reactbooks.spring_boot_library.repository.BookRepository;
+import com.reactbooks.spring_boot_library.repository.CheckoutRepository;
+import com.reactbooks.spring_boot_library.repository.ReviewRepository;
 import com.reactbooks.spring_boot_library.requestmodels.AddBookRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,16 @@ import java.util.Optional;
 public class AdminService {
 
     private BookRepository bookRepository;
+    private ReviewRepository reviewRepository;
+    private CheckoutRepository checkoutRepository;
 
     @Autowired
-    public AdminService(BookRepository bookRepository) {
+    public AdminService(BookRepository bookRepository,
+                        ReviewRepository reviewRepository,
+                        CheckoutRepository checkoutRepository) {
         this.bookRepository = bookRepository;
+        this.reviewRepository = reviewRepository;
+        this.checkoutRepository = checkoutRepository;
     }
 
     public void increaseBookQty(Long bookId) throws Exception {
@@ -58,6 +66,18 @@ public class AdminService {
         book.setImg(addBookRequest.getImg());
 
         bookRepository.save(book);
+    }
+
+    public void deleteBook(Long bookId) throws Exception {
+        Optional<Book> book = bookRepository.findById(bookId);
+
+        if (book.isEmpty()) {
+            throw new Exception("Book not found");
+        }
+
+        bookRepository.delete(book.get());
+        reviewRepository.deleteAllByBookId(bookId);
+        checkoutRepository.deleteAllByBookId(bookId);
     }
 
 
