@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
@@ -15,8 +16,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Review findByUserEmailAndBookId(String userEmail, Long bookId);
 
+    @Transactional
     @Modifying
-    @Query("delete from Checkout where book_id in :book_id")
-    void deleteAllByBookId(@Param("book_id") Long bookId);
+    @Query("delete from Review r where r.bookId = :bookId")
+    void deleteAllByBookId(@Param("bookId") Long bookId);
 
 }
