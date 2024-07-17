@@ -42,7 +42,6 @@ public class AdminController {
         adminService.increaseBookQty(bookId);
     }
 
-
     private String extractAdmin(String token) {
         return ExtractJWT.payloadJWTExtraction(token, "\"userType\"");
     }

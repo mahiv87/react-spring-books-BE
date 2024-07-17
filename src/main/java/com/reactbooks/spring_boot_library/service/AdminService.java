@@ -33,7 +33,20 @@ public class AdminService {
         bookRepository.save(book.get());
     }
 
-    public void postBook (AddBookRequest addBookRequest) {
+    public void decreaseBookQty(Long bookId) throws Exception {
+        Optional<Book> book = bookRepository.findById(bookId);
+
+        if (book.isEmpty()) {
+            throw new Exception("Book not found");
+        }
+
+        book.get().setCopiesAvailable(book.get().getCopiesAvailable() - 1);
+        book.get().setCopies(book.get().getCopies() - 1);
+
+        bookRepository.save(book.get());
+    }
+
+    public void postBook(AddBookRequest addBookRequest) {
         Book book = new Book();
 
         book.setTitle(addBookRequest.getTitle());
@@ -46,7 +59,6 @@ public class AdminService {
 
         bookRepository.save(book);
     }
-
 
 
 }
