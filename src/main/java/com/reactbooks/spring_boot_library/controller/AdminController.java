@@ -6,7 +6,7 @@ import com.reactbooks.spring_boot_library.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("https://localhost:5173")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
