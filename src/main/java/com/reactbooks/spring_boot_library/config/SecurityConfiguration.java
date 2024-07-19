@@ -13,6 +13,8 @@ class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.requiresChannel(channel -> channel.anyRequest().requiresSecure());
+
         return http.authorizeHttpRequests(
                         (req) -> req.requestMatchers("/api/books/secure/**",
                         "/api/reviews/secure/**",
