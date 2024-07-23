@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("https://react-spring-library-87d43a3bbf09.herokuapp.com")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
