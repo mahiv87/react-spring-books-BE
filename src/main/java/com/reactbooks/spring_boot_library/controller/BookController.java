@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("https://react-spring-library-87d43a3bbf09.herokuapp.com")
+@CrossOrigin("https://reactspringlibrary.netlify.app")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {

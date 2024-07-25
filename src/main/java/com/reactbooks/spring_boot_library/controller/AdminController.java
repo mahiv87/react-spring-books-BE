@@ -6,7 +6,7 @@ import com.reactbooks.spring_boot_library.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("https://react-spring-library-87d43a3bbf09.herokuapp.com")
+@CrossOrigin("https://reactspringlibrary.netlify.app")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {

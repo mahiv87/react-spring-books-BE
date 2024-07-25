@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
 
-    private String allowedOrigins = "https://react-spring-library-87d43a3bbf09.herokuapp.com";
+    private String allowedOrigins = "https://reactspringlibrary.netlify.app";
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
