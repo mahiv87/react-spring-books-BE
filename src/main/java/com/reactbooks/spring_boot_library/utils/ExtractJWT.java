@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class ExtractJWT {
 
+//    Extracts the value associated with the specified key from the payload of a JWT
+
     public static String payloadJWTExtraction(String token, String extraction) {
         token.replace("Bearer ", "");
 

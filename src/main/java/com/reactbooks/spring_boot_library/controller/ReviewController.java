@@ -17,6 +17,7 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
+//    Checks if a user has reviewed a specific book
     @GetMapping("/secure/user/book")
     public Boolean reviewBookByUser (@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) throws Exception {
         String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
@@ -28,6 +29,7 @@ public class ReviewController {
         return reviewService.userReviewListed(userEmail, bookId);
     }
 
+//    Create a new review
     @PostMapping("/secure")
     public void postReview(@RequestHeader(value = "Authorization") String token, @RequestBody ReviewRequest reviewRequest) throws Exception {
 

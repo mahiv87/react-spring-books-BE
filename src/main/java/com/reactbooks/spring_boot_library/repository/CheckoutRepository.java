@@ -10,10 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CheckoutRepository extends JpaRepository<Checkout, Long> {
+//    Finds a Checkout record by the user's email and book ID.
     Checkout findByUserEmailAndBookId(String userEmail, Long bookId);
 
+//    Retrieves a list of Checkout records for a specific user based on their email
     List<Checkout> findBooksByUserEmail(String userEmail);
 
+//    Deletes all Checkout records associated with a specified book ID
     @Transactional
     @Modifying
     @Query("delete from Checkout c where c.bookId = :bookId")

@@ -39,6 +39,7 @@ public class History {
     private String img;
 
 
+    // Additional constructor to match the required arguments
     public History(
             String userEmail,
             String checkoutDate,

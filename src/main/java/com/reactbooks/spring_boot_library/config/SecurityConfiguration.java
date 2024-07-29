@@ -11,6 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 class SecurityConfiguration {
 
+//    Configures the security filter chain, which includes authorization rules,
+//    OAuth2 resource server configuration, and CORS settings.
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(

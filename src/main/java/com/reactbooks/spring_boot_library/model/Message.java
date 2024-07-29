@@ -33,6 +33,7 @@ public class Message {
     @Column(name = "closed")
     private boolean closed;
 
+    // Additional constructor to match the required arguments
     public Message (String title, String question) {
         this.title = title;
         this.question = question;

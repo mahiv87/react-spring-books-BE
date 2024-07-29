@@ -18,6 +18,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
+//    Adds a new book to the library. Requires an authorization token with administrative privileges
     @PostMapping("/secure/add/book")
     public void postBook(@RequestHeader(value = "Authorization") String token,
                          @RequestBody AddBookRequest addBookRequest) throws Exception {
@@ -27,6 +28,8 @@ public class AdminController {
         adminService.postBook(addBookRequest);
     }
 
+//    Increases the quantity of a book in the library.
+//    Requires an authorization token with administrative privileges
     @PutMapping("/secure/increase/book/quantity")
     public void increaseBookQty(@RequestHeader(value = "Authorization") String token,
                                 @RequestParam Long bookId) throws Exception {
@@ -36,6 +39,8 @@ public class AdminController {
         adminService.increaseBookQty(bookId);
     }
 
+//    Decreases the quantity of a book in the library.
+//    Requires an authorization token with administrative privileges
     @PutMapping("/secure/decrease/book/quantity")
     public void decreaseBookQty(@RequestHeader(value = "Authorization") String token,
                                 @RequestParam Long bookId) throws Exception {
@@ -45,6 +50,8 @@ public class AdminController {
         adminService.decreaseBookQty(bookId);
     }
 
+//    Deletes a book from the library.
+//    Requires an authorization token with administrative privileges
     @DeleteMapping("/secure/delete/book")
     public void deleteBook(@RequestHeader(value = "Authorization") String token,
                            @RequestParam Long bookId) throws Exception {
@@ -55,10 +62,12 @@ public class AdminController {
     }
 
 
+//    Extracts the user type from the JWT token
     private String extractAdmin(String token) {
         return ExtractJWT.payloadJWTExtraction(token, "\"userType\"");
     }
 
+//    Checks if the user type is admin
     private void checkAdmin(String admin) throws Exception {
         if (admin == null || !admin.equals("admin")) {
             throw new Exception("Administration access only");

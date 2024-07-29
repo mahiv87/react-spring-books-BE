@@ -20,6 +20,7 @@ public class MessagesService {
         this.messageRepository = messageRepository;
     }
 
+//    Posts a new message to the repository. Associates the message with the user who posted it
     public void postMessage(Message messageRequest, String userEmail) {
         Message message = new Message(messageRequest.getTitle(), messageRequest.getQuestion());
 
@@ -27,6 +28,7 @@ public class MessagesService {
         messageRepository.save(message);
     }
 
+//    Updates an existing message with a response from an administrator and marks it as closed
     public void putMessage(AdminQuestionRequest adminQuestionRequest, String userEmail) throws Exception {
         Optional<Message> message = messageRepository.findById(adminQuestionRequest.getId());
 

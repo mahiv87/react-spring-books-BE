@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.Optional;
 
+// Object used for submitting book reviews
 @Data
 public class ReviewRequest {
     private double rating;

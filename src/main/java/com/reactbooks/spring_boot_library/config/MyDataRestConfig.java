@@ -14,6 +14,8 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     private String allowedOrigins = "https://reactspringlibrary.netlify.app";
 
+//    Configures the REST repository settings, including exposing entity IDs and restricting certain HTTP methods.
+//    Also sets up CORS to allow requests from a specific origin.
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         HttpMethod[] unsupportedActions = {
@@ -35,6 +37,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     }
 
+//    Disables specified HTTP methods for a given entity class.
     private void disableHttpMethods(Class modelClass,
                                     RepositoryRestConfiguration config,
                                     HttpMethod[] unsupportedActions) {

@@ -28,6 +28,7 @@ public class AdminService {
         this.checkoutRepository = checkoutRepository;
     }
 
+//    Increases the quantity of copies available and total copies for a book identified by the book Id
     public void increaseBookQty(Long bookId) throws Exception {
         Optional<Book> book = bookRepository.findById(bookId);
 
@@ -41,6 +42,7 @@ public class AdminService {
         bookRepository.save(book.get());
     }
 
+//    Decreases the quantity of copies available and total copies for a book identified by book Id
     public void decreaseBookQty(Long bookId) throws Exception {
         Optional<Book> book = bookRepository.findById(bookId);
 
@@ -54,6 +56,7 @@ public class AdminService {
         bookRepository.save(book.get());
     }
 
+//    Adds a new book using details provided in AddBookRequest
     public void postBook(AddBookRequest addBookRequest) {
         Book book = new Book();
 
@@ -68,6 +71,7 @@ public class AdminService {
         bookRepository.save(book);
     }
 
+//    Deletes a book identified by book Id
     public void deleteBook(Long bookId) throws Exception {
         Optional<Book> book = bookRepository.findById(bookId);
 

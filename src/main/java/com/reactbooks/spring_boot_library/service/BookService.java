@@ -31,6 +31,7 @@ public class BookService {
         this.historyRepository = historyRepository;
     }
 
+//    Checks out a book to the user and updates the book's available copies and creates a new checkout record
     public Book checkoutBook (String userEmail, Long bookId) throws Exception {
         Optional<Book> book = bookRepository.findById(bookId);
 
@@ -54,14 +55,17 @@ public class BookService {
         return book.get();
     }
 
+//    Checks if a specific book is checked out by a given user
     public Boolean isBookCheckedOutByUser (String userEmail, Long bookId) {
         return checkoutRepository.findByUserEmailAndBookId(userEmail, bookId) != null;
     }
 
+//    Gets the count of books currently checked out by a user
     public int currentLoansCount (String userEmail) {
         return checkoutRepository.findBooksByUserEmail(userEmail).size();
     }
 
+//    Gets a list of currently checked-out books for a user, including the number of days left before return
     public List<ShelfCurrentLoansResponse> currentLoans (String userEmail) throws Exception {
         List<ShelfCurrentLoansResponse> shelfCurrentLoansResponses = new ArrayList<>();
 
@@ -90,6 +94,8 @@ public class BookService {
         return shelfCurrentLoansResponses;
     }
 
+//    Returns a book that was checked out by the user and updates the book's available copies,
+//    deletes the checkout record, and saves the transaction to history
     public void returnBook (String userEmail, Long bookId) throws Exception {
         Optional<Book> book = bookRepository.findById(bookId);
 
@@ -118,6 +124,7 @@ public class BookService {
 
     }
 
+//    Renews the loan period for a book checked out by the user
     public void renewLoan (String userEmail, Long bookId) throws Exception {
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 

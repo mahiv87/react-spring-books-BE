@@ -22,6 +22,7 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
+//    Posts a new review for a book. Throws an exception if the user has already reviewed the book
     public void postReview(String userEmail, ReviewRequest reviewRequest) throws Exception {
         Review validateReview = reviewRepository.findByUserEmailAndBookId(userEmail, reviewRequest.getBookId());
 
@@ -43,6 +44,7 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
+//    Checks if a user has already posted a review for a specific book
     public Boolean userReviewListed (String userEmail, Long bookId) {
         Review validateReview = reviewRepository.findByUserEmailAndBookId(userEmail, bookId);
 

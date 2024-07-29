@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// Response model used to provide information about books currently on loan
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -17,6 +17,7 @@ public class MessagesController {
         this.messagesService = messagesService;
     }
 
+//    Posts a new message
     @PostMapping("/secure/add/message")
     public void postMessage(@RequestHeader(value = "Authorization") String token,
                             @RequestBody Message messageRequest) {
@@ -26,6 +27,7 @@ public class MessagesController {
 
     }
 
+//    Updates a message. Requires an authorization token with administrative privileges
     @PutMapping("/secure/admin/message")
     public void putMessage(@RequestHeader(value = "Authorization") String token,
                            @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
@@ -41,6 +43,7 @@ public class MessagesController {
     }
 
 
+//    Extracts the user's email from the JWT token
     private String extractUserEmail(String token) {
         return ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
     }
