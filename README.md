@@ -19,11 +19,12 @@ Back End built for my React Spring Library app using Java Spring Boot
 
 ## Technologies
 
-Java 17
-Spring Boot
-lombok
-MySQL
-Okta Authentication
+- Java 17
+- Spring Boot
+- lombok
+- MySQL
+- AWS RDS
+- Okta Authentication
 
 ## Installation
 
